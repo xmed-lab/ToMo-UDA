@@ -1,5 +1,5 @@
 <div align=center>
-<h1>  $M^3$-UDA: A New Benchmark for Unsupervised Domain Adaptive Fetal Cardiac Structure Detection.</h1>
+<h1> Unsupervised Domain Adaptation for Anatomical Structure Detection in Ultrasound Images.</h1>
 </div>
 <div align=center>
 
@@ -19,19 +19,13 @@
 
 
 ## :hammer: PostScript
-&ensp; :smile: This project is the pytorch implemention of $M^3$-UDA;
+&ensp; :smile: This project is the pytorch implemention of ToMo-UDA;
 
 &ensp; :laughing: Our experimental platform is configured with <u>One *RTX3090 (cuda>=11.0)*</u>; 
 
-&ensp; :blush: Currently, this code is avaliable for proposed dataset FCS and public dataset <u>CardiacUDA</u>;
+&ensp; :blush: Currently, this code is avaliable for proposed dataset $FUSH^2$, public dataset <a href="https://github.com/xmed-lab/GraphEcho">CardiacUDA</a> and <a href="https://zmiclab.github.io/zxh/0/mmwhs/">MMWHS</a>;  
 
 <!-- &ensp; :smiley: For codes and accessment that related to dataset ***CardiacUDA***; -->
-
-&ensp; &ensp; &ensp;    **:eyes:** The code is now available at:
-&ensp; &ensp; &ensp;       ```
-                            ..\data\detus_dataset.py
-                           ```
-
 
 
 ## :computer: Installation
@@ -49,30 +43,32 @@
 
 ## :blue_book: Data Preparation
 
-### *1. FCS dataset*
- * This project provides the use case of Unsupervised Domain Adaptive Fetal Cardiac Structure Detection task;
+### *1. FUSH^2 dataset*
+ * This project provides the use case of UDA Ultrasound Anatomical Structure Detection task;
 
  * The hyper parameters setting of the dataset can be found in the **utils/config.py**, where you could do the parameters modification;
 
  * For different tasks, the composition of data sets have significant different, so there is no repetition in this file;
 
 
-   <!-- #### *1.1. Download The **FCS**.* -->
+   <!-- #### *1.1. Download The **$FUSH^2$**.* -->
    <!-- :speech_balloon: The detail of CAMUS, please refer to: https://www.creatis.insa-lyon.fr/Challenge/camus/index.html/. -->
 
    1. Download & Unzip the dataset.
 
-      The ***FCS dataset*** is composed as: /Hospital1 & /Hospital2 & Hospital3.
+      The ***FUSH^2 dataset*** is composed as: /Heart & /Head.
 
-   2. The source code of loading the FCS dataset exist in path :
+   2. The source code of loading the $FUSH^2$ dataset exist in path :
 
       ```python
-      ..\data\fetus_dataset.py
+      ..\data\fetus_dataset_coco.py
       and modify the dataset path in
       ..\utils/config.py
       ```
+      
 
-   3. Set the parameters about GPU_id, source domain,target domain and slice etc in **utils/config.py** 
+   3. In **utils/config.py**, you can set the ```part``` to select the anatomical slice, and choose the source and target domains using ```selected_source_hospital``` and ```selected_target_hospital```, respectively.
+   
    <!-- #### *1.2. Download The **CardiacUDA**.*
 
    :speech_balloon: The detail of CardiacUDA, please refer to: https://echonet.github.io/dynamic/.
@@ -88,7 +84,7 @@
       and modify the dataset path in
       ..\train_camus_echo.py
       ``` -->
-### *2. FCS dataset access*
+### *2. FUSH^2 dataset access*
   * Dataset access can be obtained by contacting hospital staff (doc.liangbc@gmail.com) and asking for a license.
     
 ## :feet: Training
@@ -109,20 +105,12 @@
 #
 
 ## :feet: Testing
-1. Download the checkpoint in table below.
----
-| Experiment      | Checkpoint |
-| ----------- | ----------- |
-| 4CC 1->2      | [4CC1-2](https://drive.google.com/file/d/1SXKbSGN0sGyShdu4QnphYsdNout4lNnU/view?usp=drive_link) |
-| 4CC 2->1      | [4CC2-1](https://drive.google.com/file/d/1O2Py77c3DNXw5-3jm2rrOunZxPzl2X0Y/view?usp=drive_link) |
-| 3VT 1->2      | [3VT1-2](https://drive.google.com/file/d/1sFtJAsCb0NZ_uUE3Xzi4grIZfsgsEbVB/view?usp=drive_link) |
-| 3VT 2->1      | [3VT2-1](https://drive.google.com/file/d/1OnoCU5TrqF65fCfVGNRfli9XO294BrR5/view?usp=drive_link) |
----
-2. Update the test weight path in **config.py**.
-3. you only need to use the command:
+1. Download the ```TEST_CHECKPOINT``` <a href="https://drive.google.com/drive/folders/1XvrZR4DOWA58aSsVK6FYTWqtXIid2VPd?usp=sharing">here</a>.
+
+2. you only need to use the command:
 
    ```shell
-    python test.py
+    python test.py --path TEST_CHECKPOINT
     ```
 #
 
@@ -130,17 +118,15 @@
 ## :feet: citation
 
 ```
-@inproceedings{pu2024m3,
-  title={M3-UDA: A New Benchmark for Unsupervised Domain Adaptive Fetal Cardiac Structure Detection},
-  author={Pu, Bin and Wang, Liwen and Yang, Jiewen and He, Guannan and Dong, Xingbo and Li, Shengli and Tan, Ying and Chen, Ming and Jin, Zhe and Li, Kenli and others},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={11621--11630},
-  year={2024}
+@inproceedings{puunsupervised,
+  title={Unsupervised Domain Adaptation for Anatomical Structure Detection in Ultrasound Images},
+  author={Pu, Bin and Lv, Xingguo and Yang, Jiewen and Guannan, He and Dong, Xingbo and Lin, Yiqun and Shengli, Li and Ying, Tan and Fei, Liu and Chen, Ming and others},
+  booktitle={Forty-first International Conference on Machine Learning}
 }
 ```
 
 
-###### :rocket: Code Reference 
+## :rocket: Code Reference 
   - https://github.com/CityU-AIM-Group/SIGMA
 
 <!-- ###### :rocket: Updates Ver 1.0（PyTorch）
