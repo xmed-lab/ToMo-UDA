@@ -292,23 +292,6 @@ class Normalize:
         img = F.normalize(img, mean=self.mean, std=self.std)
 
         return img, target
-    
-class GaussianBlur:
-    """
-    Gaussian blur augmentation in SimCLR https://arxiv.org/abs/2002.05709
-    Adapted from MoCo:
-    https://github.com/facebookresearch/moco/blob/master/moco/loader.py
-    Note that this implementation does not seem to be exactly the same as
-    described in SimCLR.
-    """
-
-    def __init__(self, sigma=[0.1, 2.0]):
-        self.sigma = sigma
-
-    def __call__(self, x):
-        sigma = random.uniform(self.sigma[0], self.sigma[1])
-        x = x.filter(ImageFilter.GaussianBlur(radius=sigma))
-        return x
 
 def preset_transform(opt, train=True):
 
@@ -354,23 +337,12 @@ def build_augmentation(is_train):
     augmentation = []
     if is_train:
         # This is simialr to SimCLR https://arxiv.org/abs/2002.05709
-        # augmentation.append(
-        #     torch_transforms.RandomApply([torch_transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8) # d:0.8
-        # )
-        # augmentation.append(torch_transforms.RandomGrayscale(p=0.2))
-        # augmentation.append(torch_transforms.RandomApply([GaussianBlur([0.1, 2.0])], p=0.5))
         randcrop_transform = torch_transforms.Compose(
             [
                 torch_transforms.ToTensor(),
                 torch_transforms.RandomErasing(
                     p=0.7, scale=(0.05, 0.2), ratio=(0.3, 3.3), value="random"
                 ),
-                # torch_transforms.RandomErasing(
-                #     p=0.5, scale=(0.02, 0.2), ratio=(0.1, 6), value="random"
-                # ),
-                # torch_transforms.RandomErasing(
-                #     p=0.3, scale=(0.02, 0.2), ratio=(0.05, 8), value="random"
-                # ),
                 torch_transforms.ToPILImage(),
             ]
         )
