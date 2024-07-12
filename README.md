@@ -31,11 +31,11 @@
 ## :computer: Installation
 
 
-1. You need to build the relevant environment first, please refer to : [**requirements.yaml**](requirements.yaml)
+1. You need to build the relevant environment first, please refer to : [**environment.yml**](environment.yml)
 
 2. Install Environment:
     ```
-    conda env create -f requirements.yaml
+    conda env create -f environment.yml
     ```
 
 + We recommend you to use Anaconda to establish an independent virtual environment, and python > = 3.8.3; 
